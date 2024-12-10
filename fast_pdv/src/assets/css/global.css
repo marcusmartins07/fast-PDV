@@ -1,0 +1,40 @@
+:root {
+    --bd-violet-bg: #6f42c1;
+}
+
+.card-header {
+    color: #fff;
+    background-color: var(--bd-violet-bg);
+}
+
+.card-header:first-child {
+    border-radius: 0;
+}
+
+.card {
+    border: 3px solid var(--bd-violet-bg);
+    border-radius: .25rem
+}
+
+.btn-bd-primary {
+    font-weight: 600;
+    color: #fff;
+    background-color: var(--bd-violet-bg);
+    border-color: var(--bd-violet-bg);
+}
+
+.btn-bd-primary:hover {
+    color: #fff;
+    background-color: #59359a;
+    border-color: #59359a;
+}
+
+.btn-bd-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.5);
+}
+
+.btn-bd-primary:active {
+    color: #fff;
+    background-color: #4a2b83;
+    border-color: #4a2b83;
+}
