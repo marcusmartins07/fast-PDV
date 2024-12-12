@@ -2,7 +2,6 @@
   <div class="mt-5">
     <Alert />
     <Navbar/>
-    
     <div class="container">
       <div class="row">
         <div class="col mt-4">
@@ -21,7 +20,6 @@
                   {{ forma.descricao_forma }}
                 </button>
               </div>
-              
               
               <div v-for="forma in formas" :key="forma.forma_pagamento_id">
                 <div class="modal fade" :id="'abrirModalPagamento-'+forma.forma_pagamento_id" tabindex="-1" aria-labelledby="modalPagamentoLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -150,7 +148,7 @@
                 <div class="col">SubTotal: R$ {{ formatPreco(valores_pagos_pedidos.valor_subtotal)  }}</div>
               </div>
               <div class="row mt-3">
-                <div class="col">Quantidade: {{ quantidadeTotal }}</div>
+                <div class="col">Quantidade: {{ quantidade_total }}</div>
                 <div class="col">Total: R$ {{ formatPreco(valores_pagos_pedidos.valor_total) }}</div>
                 <div class="col">Valor Restante: R$ {{ formatPreco(valores_pagos_pedidos.valor_restante) }}</div>
                 <form @submit.prevent="enviarPedido">
@@ -167,8 +165,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="retornarHome"></button>
                       </div>
                       <div class="modal-body">
-                        <div v-if="pdfUrl">
-                          <iframe :src="pdfUrl" width="100%" height="600px"></iframe>
+                        <div v-if="pdf_url">
+                          <iframe :src="pdf_url" width="100%" height="600px"></iframe>
                         </div>
                       </div>
                       <div class="modal-footer">
@@ -206,15 +204,15 @@ export default {
   data() {
     return {
       cliente: {},
-      produtosPedido: [],
+      produtos_pedido: [],
       formas: [],
       forma_pagamento_pedido: [],
       forma_pagamento_excluir: null,
-      quantidadeTotal: 0,
+      quantidade_total: 0,
       valor_pago: 0,
       valor_pagamento_modal: 0,
       pedido_dados: {},
-      pdfUrl: null,
+      pdf_url: null,
       senha: '',
       valores_pagos_pedidos: {
         valor_subtotal: 0,
@@ -230,21 +228,21 @@ export default {
     this.buscarFormasPagamento();
     // Recupera localStorage
     const clienteStorage = localStorage.getItem('clienteSelecionado');
-    const produtosStorage = localStorage.getItem('produtosPedido');
+    const produtosStorage = localStorage.getItem('produtos_pedido');
     const forma_pagamento_pedido_storage = localStorage.getItem('forma_pagamento_pedido');
 
     if (produtosStorage) {
-      const produtosPedido = JSON.parse(produtosStorage);
+      const produtos_pedido = JSON.parse(produtosStorage);
 
       if (clienteStorage) {
         const cliente = JSON.parse(clienteStorage);
-        this.carregarDados(cliente, produtosPedido); 
+        this.carregarDados(cliente, produtos_pedido); 
         if (forma_pagamento_pedido_storage) {
           const pagamento = JSON.parse(forma_pagamento_pedido_storage)
           this.carregarDadosPagamentoPedido(pagamento)
         }
       } else {
-        this.carregarDados(null, produtosPedido); 
+        this.carregarDados(null, produtos_pedido); 
         if (forma_pagamento_pedido_storage) {
           const pagamento = JSON.parse(forma_pagamento_pedido_storage)
           this.carregarDadosPagamentoPedido(pagamento)
@@ -257,13 +255,13 @@ export default {
   },
 
   methods: {
-    carregarDados(cliente, produtosPedido) {
+    carregarDados(cliente, produtos_pedido) {
       if (cliente) {
         this.cliente = cliente;
       } else {
         eventBus.emit('show-alert', { type: 'warning', message: 'Nenhum cliente selecionado. Prosseguindo sem cliente.' });
       }
-      this.produtosPedido = produtosPedido;
+      this.produtos_pedido = produtos_pedido;
       this.somaProduto();
     },
 
@@ -281,7 +279,7 @@ export default {
       this.valores_pagos_pedidos.troco = 0;
 
       // Calcular o total
-      this.produtosPedido.forEach(produto => {
+      this.produtos_pedido.forEach(produto => {
         subtotal += parseFloat(produto.preco_venda);
         total += parseFloat(produto.preco_venda);
         const precoDesconto = parseFloat(produto.preco_desconto);
@@ -291,7 +289,7 @@ export default {
       });
 
       total = total - desconto;
-      this.quantidadeTotal = this.produtosPedido.length;
+      this.quantidade_total = this.produtos_pedido.length;
       this.valores_pagos_pedidos.valor_subtotal = subtotal;
       this.valores_pagos_pedidos.valor_total = total;
       this.valores_pagos_pedidos.valor_desconto = desconto;
@@ -413,7 +411,7 @@ export default {
       this.pedido_dados = {
         data_pedido: data_pedido,
         cliente: this.cliente,
-        produtos: this.produtosPedido,
+        produtos: this.produtos_pedido,
         formas_pagamento: this.forma_pagamento_pedido,
         valores: {
           valor_subtotal: parseFloat(this.valores_pagos_pedidos.valor_subtotal.toFixed(2)),
@@ -452,7 +450,7 @@ export default {
         }
 
         const pdfBlob = await pdfResponse.blob();
-        this.pdfUrl = URL.createObjectURL(pdfBlob);
+        this.pdf_url = URL.createObjectURL(pdfBlob);
 
       } catch (error) {
         eventBus.emit('show-alert', { type: 'warning', message: "Erro ao enviar o pedido ou gerar a nota fiscal:", error});
@@ -461,7 +459,7 @@ export default {
 
     async retornarHome() { 
       localStorage.removeItem('clienteSelecionado');
-      localStorage.removeItem('produtosPedido');
+      localStorage.removeItem('produtos_pedido');
       localStorage.removeItem('forma_pagamento_pedido');
       localStorage.removeItem('valores_pagos_pedidos');
       this.$router.push({ name: 'Venda' });

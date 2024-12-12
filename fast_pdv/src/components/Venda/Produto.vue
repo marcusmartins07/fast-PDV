@@ -111,7 +111,7 @@
       <div class="card-footer">
         <form @submit.prevent="biparProduto">
           <div class="input-group my-3">
-            <input type="text" v-model="codigoBarras" class="form-control" placeholder="Código de barras" aria-label="Código de barras" aria-describedby="button-addon2">
+            <input type="text" v-model="codigo_barras" class="form-control" placeholder="Código de barras" aria-label="Código de barras" aria-describedby="button-addon2">
             <button class="btn btn-bd-primary" type="submit" id="button-addon2">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
@@ -126,7 +126,7 @@
           
         </div>
         <div class="row mt-3 mb-2">
-          <div class="col">Quantidade: {{ quantidadeTotal }}</div>
+          <div class="col">Quantidade: {{ quantidade_total }}</div>
           <div class="col">Total: R$ {{ formatPreco(valor_total) }}</div>
         </div>
         
@@ -147,13 +147,13 @@ export default {
   data() {
     return {
       produtos_pedido: [],
-      codigoBarras: '',
+      codigo_barras: '',
       valor_subtotal: 0,
       valor_total: 0,
       valor_desconto: 0,
-      quantidadeTotal: 0,
-      produtoOriginal: {},
-      produtoParaExcluir: null,
+      quantidade_total: 0,
+      produto_original: {},
+      produto_para_excluir: null,
       possui_forma_pagamento: false,
     };
   },
@@ -179,7 +179,7 @@ export default {
     async getProduto() {
       try {
         const req = await this.$RequisicaoAutenticada(
-          `http://127.0.0.1:8000/api/v1/produto/buscar_por_codigo_barras/?codigo_barras=${this.codigoBarras}`
+          `http://127.0.0.1:8000/api/v1/produto/buscar_por_codigo_barras/?codigo_barras=${this.codigo_barras}`
         );
 
         if (req.status === 404) {
@@ -190,7 +190,7 @@ export default {
 
         const data = await req.json();
         this.produtos_pedido.push(data);
-        this.codigoBarras = "";
+        this.codigo_barras = "";
 
         this.$nextTick(() => {
           const produtosContainer = this.$refs.produtosContainer;
@@ -235,7 +235,7 @@ export default {
 
       total = total - desconto
 
-      this.quantidadeTotal = this.produtos_pedido.length;
+      this.quantidade_total = this.produtos_pedido.length;
       this.valor_subtotal = subtotal;
       this.valor_total = total;
       this.valor_desconto = desconto;
@@ -243,14 +243,14 @@ export default {
     },
 
     async biparProduto() {
-      if (this.codigoBarras.length == 13) { 
+      if (this.codigo_barras.length == 13) { 
         eventBus.emit('loading', true);
         await this.getProduto();
         await this.somaProduto();
         eventBus.emit('loading', false);
       } else {
         eventBus.emit('show-alert', { type: 'danger', message: 'Código de barras inválido, deve ter 13 dígitos.'});
-        this.codigoBarras = ''; // Limpa o campo de código de barras
+        this.codigo_barras = ''; // Limpa o campo de código de barras
       }
     },
 
@@ -294,13 +294,13 @@ export default {
       return desconto.toFixed(0);
     },
     abrirModal(index) {
-      this.produtoOriginal = { ...this.produtos_pedido[index] };
+      this.produto_original = { ...this.produtos_pedido[index] };
       const modal = new bootstrap.Modal(document.getElementById(`desconto-produto-${index}`));
       modal.show();
     },
 
     cancelarAlteracoes(index) {
-      this.produtos_pedido[index] = { ...this.produtoOriginal };
+      this.produtos_pedido[index] = { ...this.produto_original };
     },
 
     salvarAlteracoes(index) {
@@ -310,18 +310,18 @@ export default {
     },
 
     abrirModalExclusao(index) {
-      this.produtoParaExcluir = index;
+      this.produto_para_excluir = index;
       const modalExclusao = new bootstrap.Modal(document.getElementById(`abrirModalExclusao-${index}`));
       modalExclusao.show();
     },
 
     confirmarExclusao(index) {
-      if (this.produtoParaExcluir !== null) {
-        this.produtos_pedido.splice(this.produtoParaExcluir, 1);
+      if (this.produto_para_excluir !== null) {
+        this.produtos_pedido.splice(this.produto_para_excluir, 1);
         const modalExclusao = bootstrap.Modal.getInstance(document.getElementById(`abrirModalExclusao-${index}`));
         modalExclusao.hide();
         this.somaProduto();
-        this.produtoParaExcluir = null;
+        this.produto_para_excluir = null;
       }
       const modalExclusao = bootstrap.Modal.getInstance(document.getElementById(`abrirModalExclusao-${index}`));
       modalExclusao.hide();

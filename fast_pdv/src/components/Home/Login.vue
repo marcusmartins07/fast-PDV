@@ -54,16 +54,16 @@
       return {
         username: "",
         password: "",
-        errorMessage: null,
-        loginModalInstance: null,
+        error_message: null,
+        login_modal_instance: null,
       };
     },
     mounted() {
       const token = localStorage.getItem("accessToken");
       if (!token) {
         const modalElement = document.getElementById("loginModal");
-        this.loginModalInstance = new bootstrap.Modal(modalElement);
-        this.loginModalInstance.show();
+        this.login_modal_instance = new bootstrap.Modal(modalElement);
+        this.login_modal_instance.show();
       }
     },
     methods: {
@@ -88,8 +88,8 @@
           localStorage.setItem("accessToken", data.access);
           localStorage.setItem("refreshToken", data.refresh);
           
-          if (this.loginModalInstance) {
-            this.loginModalInstance.hide();
+          if (this.login_modal_instance) {
+            this.login_modal_instance.hide();
           }
   
           this.$router.push({ name: "Venda" });

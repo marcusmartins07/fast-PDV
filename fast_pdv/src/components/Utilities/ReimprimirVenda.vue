@@ -68,8 +68,8 @@
                         </form>
                     </div>
                     <div class="modal-body">
-                        <div v-if="pdfUrl">
-                            <iframe :src="pdfUrl" width="100%" height="600px"></iframe>
+                        <div v-if="pdf_url">
+                            <iframe :src="pdf_url" width="100%" height="600px"></iframe>
                         </div>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                 vendas_buscadas: [],
                 next: null,
                 previous: null,
-                pdfUrl: null,
+                pdf_url: null,
             };
         },
         mounted() {
@@ -170,7 +170,7 @@
                     
                     this.abrirModal('abrirModalPDF')
                     const pdfBlob = await pdfResponse.blob();
-                    this.pdfUrl = URL.createObjectURL(pdfBlob);
+                    this.pdf_url = URL.createObjectURL(pdfBlob);
 
                 } catch (error) {
                     eventBus.emit('show-alert', { type: 'danger', message: `Erro ao reimprimir cupom não fiscal: ${error}`});

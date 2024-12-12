@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-2">
     <Alert/>
-    <Navbar v-if="isAuthenticated" />
+    <Navbar v-if="is_authenticated" />
     <Login/>
   </div>
 </template>
@@ -25,12 +25,12 @@ export default {
   },
   data() {
     return {
-      isAuthenticated: false,
+      is_authenticated: false,
     };
   },
   mounted() {
     const token = localStorage.getItem("accessToken");
-    this.isAuthenticated = !!token; 
+    this.is_authenticated = !!token; 
   },
 };
 </script>

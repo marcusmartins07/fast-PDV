@@ -3,18 +3,18 @@ version: '3.8'
 services:
   backend:
     build:
-      context: "C:/Users/Marcus Martins/Documents/Fast-PDV/API_Fast_PDV"
+      context: "/caminho-do-arquivo/API_Fast_PDV"
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
     volumes:
-      - ./API_Fast_PDV:/app  # Certifique-se que este caminho está correto
+      - ./API_Fast_PDV:/app 
     depends_on:
       - frontend
 
   frontend:
     build:
-      context: "C:/Users/Marcus Martins/Documents/Fast-PDV/fast_pdv"
+      context: "/caminho-do-arquivo/fast_pdv"
       dockerfile: Dockerfile
     ports:
       - "8080:80"
