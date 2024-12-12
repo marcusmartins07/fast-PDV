@@ -213,7 +213,7 @@
                     
                     eventBus.emit('show-alert', { type: 'success', message: 'Cliente atualizado com sucesso!' });
                     const atualizarCliente = bootstrap.Modal.getInstance(document.getElementById(`atualizarCliente`));
-                    localStorage.setItem('clienteSelecionado', JSON.stringify(clienteFormatado));
+                    localStorage.setItem('cliente_selecionado', JSON.stringify(clienteFormatado));
                     atualizarCliente.hide();
 
                 } catch (error) {

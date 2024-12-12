@@ -151,7 +151,7 @@ export default {
   methods: {
 
     async buscarCliente (){
-      const clienteStorage = localStorage.getItem('clienteSelecionado');
+      const clienteStorage = localStorage.getItem('cliente_selecionado');
 
       if (clienteStorage) {
         this.cliente = JSON.parse(clienteStorage);
@@ -169,7 +169,7 @@ export default {
       this.cpf_limpo = '',
       this.cliente_id = '',
       this.input_disabled = false
-      localStorage.removeItem('clienteSelecionado');
+      localStorage.removeItem('cliente_selecionado');
     },
 
     async buscarEstados() {
@@ -202,7 +202,7 @@ export default {
         this.cliente = data;
         this.cliente_id = this.cliente.cliente_id
         this.input_disabled = true
-        localStorage.setItem('clienteSelecionado', JSON.stringify(this.cliente));
+        localStorage.setItem('cliente_selecionado', JSON.stringify(this.cliente));
         eventBus.emit('show-alert', { type: 'success', message: 'Cliente encontrado!'});
       } catch (error) {
         this.cliente = null;
@@ -227,7 +227,7 @@ export default {
         this.cliente = data;
         this.cpf_cliente = this.cliente.cpf
         this.input_disabled = true
-        localStorage.setItem('clienteSelecionado', JSON.stringify(this.cliente));
+        localStorage.setItem('cliente_selecionado', JSON.stringify(this.cliente));
         
       } catch (error) {
         eventBus.emit('show-alert', { type: 'danger', message: `Erro ao buscar o cliente: ${error}` });

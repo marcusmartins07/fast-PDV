@@ -59,7 +59,7 @@
       };
     },
     mounted() {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("access_token");
       if (!token) {
         const modalElement = document.getElementById("loginModal");
         this.login_modal_instance = new bootstrap.Modal(modalElement);
@@ -85,8 +85,8 @@
           }
   
           const data = await response.json();
-          localStorage.setItem("accessToken", data.access);
-          localStorage.setItem("refreshToken", data.refresh);
+          localStorage.setItem("access_token", data.access);
+          localStorage.setItem("refresh_token", data.refresh);
           
           if (this.login_modal_instance) {
             this.login_modal_instance.hide();

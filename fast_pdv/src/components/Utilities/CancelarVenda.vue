@@ -64,8 +64,8 @@
     async validarSenha() {
       const resultado = await this.$ValidarSenha(this.senha);
         if (resultado.success){
-        localStorage.removeItem("clienteSelecionado");
-        localStorage.removeItem("produtosPedido");
+        localStorage.removeItem("cliente_selecionado");
+        localStorage.removeItem("produtos_pedido");
         localStorage.removeItem("forma_pagamento_pedido");
         localStorage.removeItem("valores_pagos_pedidos");
         window.location.reload();

@@ -227,7 +227,7 @@ export default {
   mounted() {
     this.buscarFormasPagamento();
     // Recupera localStorage
-    const clienteStorage = localStorage.getItem('clienteSelecionado');
+    const clienteStorage = localStorage.getItem('cliente_selecionado');
     const produtosStorage = localStorage.getItem('produtos_pedido');
     const forma_pagamento_pedido_storage = localStorage.getItem('forma_pagamento_pedido');
 
@@ -458,7 +458,7 @@ export default {
     },
 
     async retornarHome() { 
-      localStorage.removeItem('clienteSelecionado');
+      localStorage.removeItem('cliente_selecionado');
       localStorage.removeItem('produtos_pedido');
       localStorage.removeItem('forma_pagamento_pedido');
       localStorage.removeItem('valores_pagos_pedidos');

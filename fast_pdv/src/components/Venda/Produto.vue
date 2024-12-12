@@ -159,11 +159,11 @@ export default {
   },
 
   mounted() {
-    const produtosStorage = localStorage.getItem('produtosPedido');
+    const produtosStorage = localStorage.getItem('produtos_pedido');
 
     if (produtosStorage) {
-      const produtosPedido = JSON.parse(produtosStorage);
-      this.produtos_pedido = produtosPedido
+      const produtos_pedido = JSON.parse(produtosStorage);
+      this.produtos_pedido = produtos_pedido
       this.somaProduto();
       this.$emit("atualizarProdutos", this.produtos_pedido);
     } 
@@ -172,8 +172,8 @@ export default {
   
   methods: {
     async atualizarProduto(){
-      const produtosPedido = this.produtos_pedido;
-      localStorage.setItem('produtosPedido', JSON.stringify(produtosPedido));
+      const produtos_pedido = this.produtos_pedido;
+      localStorage.setItem('produtos_pedido', JSON.stringify(produtos_pedido));
       this.$emit("atualizarProdutos", this.produtos_pedido);
     },
     async getProduto() {

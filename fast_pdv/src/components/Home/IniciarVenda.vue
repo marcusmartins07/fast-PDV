@@ -29,7 +29,7 @@ export default {
     };
   },
   mounted() {
-    const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem("access_token");
     this.is_authenticated = !!token; 
   },
 };

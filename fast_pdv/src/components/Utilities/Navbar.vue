@@ -70,21 +70,21 @@ export default {
 
   methods: {
     fazerLogout () {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("clienteSelecionado");
-      localStorage.removeItem("produtosPedido");
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      localStorage.removeItem("cliente_selecionado");
+      localStorage.removeItem("produtos_pedido");
       this.$router.push({ name: "Home" });
     },
     async atualizarQuantidadeProduto() {
-      const produtosStorage = localStorage.getItem('produtosPedido');
-      const produtosPedido = JSON.parse(produtosStorage);
-      if(!produtosPedido || produtosPedido.length === 0){
+      const produtosStorage = localStorage.getItem('produtos_pedido');
+      const produtos_pedido = JSON.parse(produtosStorage);
+      if(!produtos_pedido || produtos_pedido.length === 0){
           this.possui_produto = false
         }
         else {
           this.possui_produto = true
-          this.produtos_pedido = produtosPedido
+          this.produtos_pedido = produtos_pedido
         }
       
     },

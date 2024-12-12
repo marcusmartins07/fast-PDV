@@ -7,11 +7,11 @@ import VueTheMask from 'vue-the-mask';
 const app = createApp(App);
 
 const RequisicaoAutenticada = async (url, options = {}) => {
-  const accessToken = localStorage.getItem('accessToken');
+  const access_token = localStorage.getItem('access_token');
   options.headers = {
     ...options.headers,
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${accessToken}`,
+    Authorization: `Bearer ${access_token}`,
   };
 
   const response = await fetch(url, options);
@@ -20,19 +20,19 @@ const RequisicaoAutenticada = async (url, options = {}) => {
     const refreshResponse = await fetch('http://127.0.0.1:8000/api/token/refresh/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ refresh: localStorage.getItem('refreshToken') }),
+      body: JSON.stringify({ refresh: localStorage.getItem('refresh_token') }),
     });
 
     if (refreshResponse.ok) {
       const newTokens = await refreshResponse.json();
-      localStorage.setItem('accessToken', newTokens.access);
+      localStorage.setItem('access_token', newTokens.access);
       options.headers.Authorization = `Bearer ${newTokens.access}`;
       return fetch(url, options);
     }
 
     if (!refreshResponse.ok) {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
     }
 
     localStorage.clear();
