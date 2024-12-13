@@ -10,11 +10,11 @@ services:
     volumes:
       - ./API_Fast_PDV:/app
     depends_on:
-      - frontend
+      - frontend 
 
   frontend:
     build:
       context: "/caminho-do-arquivo/fast_pdv"
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
+      - "8080:80" 
