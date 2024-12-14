@@ -1,54 +1,105 @@
-<h1 align="center" style="font-weight: bold;">Fast PDV</h1>
+# Fast PDV
 
-Foco na aprendizagem de vue.js e Django Rest API para desenvolver solução prática e rápida.
-Frontend construido em Vue devido a sintaxe e estrura fácil de entender, praticidade para administrar requisições e alocação de dados.
-Backend em Django devido a conhecimento prévio do framework e pela curiosidade do funcionamento de uma API REST com autenticação JWT
+**Foco na aprendizagem de Vue.js e Django REST API para desenvolver uma solução prática e rápida.**  
+O frontend foi construído em **Vue.js** devido à sua sintaxe simples e estrutura fácil de entender, oferecendo praticidade para gerenciar requisições e dados.  
+O backend foi desenvolvido em **Django** por conhecimento prévio no framework e curiosidade em explorar o funcionamento de uma API REST com autenticação JWT.
 
-## Técnologias Utilizadas
+---
 
-<!--- # "Verify icons availability here https://github.com/tandpfun/skill-icons" -->
+## 🛠️ Tecnologias Utilizadas
 
 [![My Skills](https://skillicons.dev/icons?i=django,vuejs,docker,vite,nginx,bootstrap)](https://skillicons.dev)
 
+---
 
-Executando o projeto localmente (sem Docker)
+## ⚙️ Pré-requisitos
 
-Pré-requisitos:
-Certifique-se de que as seguintes ferramentas estão instaladas em seu sistema:
+Certifique-se de que as seguintes ferramentas estão instaladas no seu sistema:
 
-Python 3.9+
-Node.js 16+
-Git
+- **Python 3.9+**
+- **Node.js 16+**
+- **Git**
 
-Clone o repósitorio: `git clone https://github.com/marcusmartins07/fast-pdv.git`
+Clone o repositório em sua máquina local:  
+```bash
+git clone https://github.com/marcusmartins07/fast-pdv.git
+```
 
-Executar backend (API):
+---
 
-1. **Crie e ative um ambiente virtual**: `python -m venv` `venv\Scripts\activate`
-2. **Instale as blibiotecas necessárias**: `pip install -r requirements.txt`
-3. **Realize as migrações e insira os dados iniciais**: `python manage.py makemigrations`
-`python manage.py migrate`
-`python manage.py shell < usuarios/bd_backup.py`
-4. **Inicie o servidor**`python manage.py runserver`
+## 🖥️ Executando o Projeto Localmente (Sem Docker)
 
+### **Backend (API)**
 
-Passos para rodar o frontend (Vue.js)
+1. **Crie e ative um ambiente virtual**:  
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate
+   ```
 
-1. **Em um novo terminal chegue até diretório do frontend**: `cd ../fast_pdv`
-2. **Instale as dependências**: `npm install`
-3. **Inicie o servidor**: `npm run dev`
+2. **Instale as bibliotecas necessárias**:  
+   ```bash
+   pip install -r requirements.txt
+   ```
 
+3. **Realize as migrações e insira os dados iniciais**:  
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   python manage.py shell < usuarios/bd_backup.py
+   ```
 
-## Executando projeto com docker
+4. **Inicie o servidor**:  
+   ```bash
+   python manage.py runserver
+   ```
 
-1. **Configurar caminho relativo dos arquivos em docker-compose.yml**: `C:/Users/Meu-Computador/Downloads/fast-pdv-main/fast-pdv-main/API_Fast_PDV` e `C:/Users/Meu-Computador/Downloads/fast-pdv-main/fast-pdv-main/fast_pdv`
-2. **Executar o projeto uma primeira vez**: `docker-compose up --build`
-3. **Ajustar migrações alimentação das tabelas no Dockerfile da API**: `CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:8000"]`
-4. **Executar novamente!**
+---
 
+### **Frontend (Vue.js)**
 
-Licença
+1. **Em um novo terminal, navegue até o diretório do frontend**:  
+   ```bash
+   cd fast_pdv
+   ```
 
-Este software está disponível sob as seguintes licenças:
+2. **Instale as dependências**:  
+   ```bash
+   npm install
+   ```
 
-- [MIT](https://rem.mit-license.org)
+3. **Inicie o servidor de desenvolvimento**:  
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 🐳 Executando o Projeto com Docker
+
+1. **Configure os caminhos relativos no arquivo `docker-compose.yml`**:  
+   Atualize os caminhos para apontar para os diretórios locais:  
+   - Backend: `C:/Users/Seu-Usuario/fast-pdv-main/API_Fast_PDV`  
+   - Frontend: `C:/Users/Seu-Usuario/fast-pdv-main/fast_pdv`
+
+2. **Execute o projeto pela primeira vez**:  
+   ```bash
+   docker-compose up --build
+   ```
+
+3. **Ajuste as migrações e a inserção de dados no Dockerfile da API**:  
+   Atualize o comando final para:  
+   ```bash
+   CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:8000"]
+   ```
+
+4. **Reinicie o contêiner**:  
+   ```bash
+   docker-compose up --build
+   ```
+
+---
+
+## 📜 Licença
+
+Este software está disponível sob a licença [MIT](https://rem.mit-license.org).
